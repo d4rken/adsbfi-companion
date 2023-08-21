@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/dashboardFragment">
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="eu.darken.adsbfi.main.ui.dashboard.DashboardFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_dashboardFragment_to_settingsContainerFragment"
+            app:destination="@id/settingsContainerFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsContainerFragment"
+        android:name="eu.darken.adsbfi.main.ui.settings.SettingsFragment"
+        tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="eu.darken.adsbfi.main.ui.onboarding.OnboardingFragment"
+        tools:layout="@layout/onboarding_fragment">
+        <action
+            android:id="@+id/action_onboardingFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+
+</navigation>
