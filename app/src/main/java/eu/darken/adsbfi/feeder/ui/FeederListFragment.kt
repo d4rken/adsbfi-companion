@@ -17,7 +17,7 @@ class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         ui.toolbar.apply {
-            subtitle = resources.getQuantityString(R.plurals.feeder_yours_x_active_msg, 0)
+            subtitle = resources.getQuantityString(R.plurals.feeder_yours_x_active_msg, 0, 0)
         }
 
         super.onViewCreated(view, savedInstanceState)

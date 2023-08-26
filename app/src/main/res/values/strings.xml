@@ -78,7 +78,7 @@
     <string name="feeder_page_label">Feeder</string>
     <plurals name="feeder_yours_x_active_msg">
         <item quantity="one">You have %d active feeder</item>
-        <item quantity="many">You have %d active feeders</item>
+        <item quantity="other">You have %d active feeders</item>
     </plurals>
 
     <string name="alerts_page_label">Alerts</string>
