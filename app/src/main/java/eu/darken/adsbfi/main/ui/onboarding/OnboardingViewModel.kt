@@ -9,7 +9,7 @@ import eu.darken.adsbfi.main.core.GeneralSettings
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardingFragmentVM @Inject constructor(
+class OnboardingViewModel @Inject constructor(
     @Suppress("UNUSED_PARAMETER") handle: SavedStateHandle,
     dispatcherProvider: DispatcherProvider,
     private val generalSettings: GeneralSettings,
@@ -17,7 +17,7 @@ class OnboardingFragmentVM @Inject constructor(
 
     fun finishOnboarding() = launch {
         generalSettings.isOnboardingFinished.value(true)
-        OnboardingFragmentDirections.actionOnboardingFragmentToDashboardFragment().navigate()
+        OnboardingFragmentDirections.actionOnboardingFragmentToMainFragment().navigate()
     }
 
 }

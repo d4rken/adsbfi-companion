@@ -8,7 +8,7 @@ import eu.darken.adsbfi.common.uix.ViewModel3
 import javax.inject.Inject
 
 @HiltViewModel
-class GeneralSettingsFragmentVM @Inject constructor(
+class GeneralSettingsViewModel @Inject constructor(
     private val handle: SavedStateHandle,
     private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel3(dispatcherProvider) {

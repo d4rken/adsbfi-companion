@@ -16,5 +16,6 @@ class SerializationModule {
     fun moshi(): Moshi = Moshi.Builder().apply {
         add(OffsetDateTimeAdapter())
         add(SemVerAdapter())
+        add(UUIDAdapter())
     }.build()
 }

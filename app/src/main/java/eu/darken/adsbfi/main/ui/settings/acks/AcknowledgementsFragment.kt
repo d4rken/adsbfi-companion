@@ -12,7 +12,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AcknowledgementsFragment : PreferenceFragment2() {
 
-    private val vm: AcknowledgementsFragmentVM by viewModels()
+    private val vm: AcknowledgementsViewModel by viewModels()
 
     override val preferenceFile: Int = R.xml.preferences_acknowledgements
     @Inject lateinit var debugSettings: GeneralSettings

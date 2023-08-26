@@ -1,4 +1,4 @@
-package eu.darken.adsbfi.main.ui.dashboard
+package eu.darken.adsbfi.main.ui.main
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,7 @@ import net.swiftzer.semver.SemVer
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardFragmentVM @Inject constructor(
+class MainViewModel @Inject constructor(
     handle: SavedStateHandle,
     dispatcherProvider: DispatcherProvider,
     githubReleaseCheck: GithubReleaseCheck,
@@ -27,7 +27,7 @@ class DashboardFragmentVM @Inject constructor(
 
     init {
         if (!generalSettings.isOnboardingFinished.valueBlocking) {
-            DashboardFragmentDirections.actionDashboardFragmentToOnboardingFragment().navigate()
+            MainFragmentDirections.actionMainFragmentToOnboardingFragment().navigate()
         }
     }
 

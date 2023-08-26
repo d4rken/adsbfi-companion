@@ -16,7 +16,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class OnboardingFragment : Fragment3(R.layout.onboarding_fragment) {
 
-    override val vm: OnboardingFragmentVM by viewModels()
+    override val vm: OnboardingViewModel by viewModels()
     override val ui: OnboardingFragmentBinding by viewBinding()
     @Inject lateinit var webpageTool: WebpageTool
 

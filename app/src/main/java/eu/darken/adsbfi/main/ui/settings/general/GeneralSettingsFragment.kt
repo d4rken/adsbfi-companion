@@ -16,7 +16,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class GeneralSettingsFragment : PreferenceFragment2() {
 
-    private val vdc: GeneralSettingsFragmentVM by viewModels()
+    private val vdc: GeneralSettingsViewModel by viewModels()
 
     @Inject lateinit var debugSettings: GeneralSettings
 

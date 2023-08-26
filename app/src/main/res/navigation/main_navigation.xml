@@ -2,30 +2,36 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    app:startDestination="@id/dashboardFragment">
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/mainFragment">
+
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="eu.darken.adsbfi.main.ui.dashboard.DashboardFragment"
+        android:id="@+id/mainFragment"
+        android:name="eu.darken.adsbfi.main.ui.main.MainFragment"
         tools:layout="@layout/main_fragment">
         <action
-            android:id="@+id/action_dashboardFragment_to_settingsContainerFragment"
+            android:id="@+id/action_mainFragment_to_settingsContainerFragment"
             app:destination="@id/settingsContainerFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_onboardingFragment"
-            app:destination="@id/onboardingFragment" />
+            android:id="@+id/action_mainFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsContainerFragment"
-        android:name="eu.darken.adsbfi.main.ui.settings.SettingsFragment"
+        android:name="eu.darken.adsbfi.main.ui.settings.SettingsIndexFragment"
         tools:layout="@layout/settings_fragment" />
+
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="eu.darken.adsbfi.main.ui.onboarding.OnboardingFragment"
         tools:layout="@layout/onboarding_fragment">
         <action
-            android:id="@+id/action_onboardingFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            android:id="@+id/action_onboardingFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/main_navigation" />
     </fragment>
 
 </navigation>

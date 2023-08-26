@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/feeder">
+
+    <action
+        android:id="@+id/action_global_feeder"
+        app:destination="@id/feeder"
+        app:popUpTo="@id/bottom_navigation" />
+    <fragment
+        android:id="@+id/feeder"
+        android:name="eu.darken.adsbfi.feeder.ui.FeederListFragment"
+        tools:layout="@layout/feeder_list_fragment" />
+
+</navigation>

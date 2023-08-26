@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.error.asErrorDialogBuilder
@@ -21,6 +24,8 @@ abstract class Fragment3(@LayoutRes layoutRes: Int?) : Fragment2(layoutRes) {
     var onErrorEvent: ((Throwable) -> Boolean)? = null
 
     var onFinishEvent: (() -> Unit)? = null
+
+    var customNavController: NavController? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,4 +55,7 @@ abstract class Fragment3(@LayoutRes layoutRes: Int?) : Fragment2(layoutRes) {
         observe(viewLifecycleOwner) { callback.invoke(ui, it) }
     }
 
+    fun NavDirections.navigate() {
+        doNavigate(this, customNavController ?: findNavController())
+    }
 }

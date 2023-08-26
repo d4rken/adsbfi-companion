@@ -13,7 +13,10 @@ import eu.darken.adsbfi.common.debug.logging.Logging.Priority.WARN
 import eu.darken.adsbfi.common.debug.logging.asLog
 import eu.darken.adsbfi.common.debug.logging.log
 
-fun Fragment.doNavigate(direction: NavDirections) = findNavController().doNavigate(direction)
+fun Fragment.doNavigate(
+    direction: NavDirections,
+    navController: NavController = findNavController()
+) = navController.doNavigate(direction)
 
 fun Fragment.popBackStack(): Boolean {
     if (!isAdded) {

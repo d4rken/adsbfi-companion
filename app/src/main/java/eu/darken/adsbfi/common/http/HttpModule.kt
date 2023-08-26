@@ -1,18 +1,23 @@
 package eu.darken.adsbfi.common.http
 
 import android.content.Context
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import eu.darken.adsbfi.common.debug.logging.Logging
+import eu.darken.adsbfi.common.datastore.value
+import eu.darken.adsbfi.common.datastore.valueBlocking
+import eu.darken.adsbfi.common.debug.autoreport.DebugSettings
+import eu.darken.adsbfi.common.debug.logging.Logging.Priority.VERBOSE
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
@@ -24,12 +29,18 @@ class HttpModule {
 
     @Reusable
     @Provides
-    fun loggingInterceptor(): HttpLoggingInterceptor {
+    fun loggingInterceptor(
+        debugSettings: DebugSettings,
+    ): HttpLoggingInterceptor {
         val logger = HttpLoggingInterceptor.Logger {
-            log(TAG, Logging.Priority.VERBOSE) { it }
+            log(TAG, VERBOSE) { it }
         }
         return HttpLoggingInterceptor(logger).apply {
-            level = (HttpLoggingInterceptor.Level.BODY)
+            level = if (debugSettings.isDebugMode.valueBlocking) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.BASIC
+            }
         }
     }
 
@@ -54,6 +65,10 @@ class HttpModule {
         val cacheDir = File(context.cacheDir, "http_base_cache")
         return Cache(cacheDir, 1024L * 1024L * 20) // 20 MB
     }
+
+    @Reusable
+    @Provides
+    fun moshiConverter(moshi: Moshi): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 
     @Qualifier
     @MustBeDocumented
