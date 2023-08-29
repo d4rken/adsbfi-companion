@@ -13,7 +13,9 @@
             android:id="@+id/mascot"
             android:layout_width="128dp"
             android:layout_height="128dp"
-            android:src="@drawable/ic_heart_24"
+            android:background="@drawable/bg_rounded_square"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_mascot"
             app:layout_constraintEnd_toEndOf="@id/title"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +33,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/body1"
-            style="@style/TextAppearance.MaterialComponents.Body1"
+            style="@style/TextAppearance.Material3.BodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -40,19 +42,19 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/body2"
-            style="@style/TextAppearance.MaterialComponents.Body1"
+            style="@style/TextAppearance.Material3.BodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/onboarding_body2"
             app:layout_constraintTop_toBottomOf="@id/body1" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/body3"
-            style="@style/TextAppearance.MaterialComponents.Body1"
+            style="@style/TextAppearance.Material3.BodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/onboarding_body3"
             app:layout_constraintTop_toBottomOf="@id/body2" />
 
