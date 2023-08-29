@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
+import java.time.Duration
 import java.util.UUID
 import javax.inject.Inject
 
@@ -59,7 +60,12 @@ class FeederActionViewModel @Inject constructor(
 
     fun toggleNotifyWhenOffline() = launch {
         log(TAG) { "toggleNotifyWhenOffline()" }
-        feederRepo.setOfflineMonitoring(feederId, !state.value!!.feeder.isMonitored)
+        val newTimeout = if (state.value!!.feeder.config.offlineCheckTimeout != null) {
+            null
+        } else {
+            Duration.ofHours(6)
+        }
+        feederRepo.setOfflineCheckTimeout(feederId, newTimeout)
     }
 
     data class State(

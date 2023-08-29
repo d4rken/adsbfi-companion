@@ -9,7 +9,6 @@ data class Feeder(
     val config: FeederConfig,
     val beastStats: BeastStats?,
     val mlatStats: MlatStats?,
-    val isMonitored: Boolean = false,
 ) {
 
     val label: String

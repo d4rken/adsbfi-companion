@@ -17,5 +17,6 @@ class SerializationModule {
         add(OffsetDateTimeAdapter())
         add(SemVerAdapter())
         add(UUIDAdapter())
+        add(DurationAdapter())
     }.build()
 }

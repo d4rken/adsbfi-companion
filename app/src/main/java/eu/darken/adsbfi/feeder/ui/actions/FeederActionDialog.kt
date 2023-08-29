@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import eu.darken.adsbfi.common.BuildConfigWrap
 import eu.darken.adsbfi.common.uix.BottomSheetDialogFragment2
 import eu.darken.adsbfi.databinding.FeederActionDialogBinding
 
@@ -25,11 +27,13 @@ class FeederActionDialog : BottomSheetDialogFragment2() {
             primary.text = feeder.label
             secondary.text = feeder.id
             tertiary.text = "\uD83C\uDF7B"
-            monitorFeederOfflineToggle.isChecked = feeder.isMonitored
+            monitorFeederOfflineToggle.isChecked = feeder.config.offlineCheckTimeout != null
         }
 
-
-        ui.monitorFeederOfflineToggle.setOnClickListener { vm.toggleNotifyWhenOffline() }
+        ui.monitorFeederOfflineToggle.apply {
+            isGone = !BuildConfigWrap.DEBUG
+            setOnClickListener { vm.toggleNotifyWhenOffline() }
+        }
 
 
         super.onViewCreated(view, savedInstanceState)

@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_settings_input_antenna_24"
             app:layout_constraintBottom_toBottomOf="@id/tertiary"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/primary"
-            style="@style/TextAppearance.Material3.BodyMedium"
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/secondary"
-            style="@style/TextAppearance.Material3.BodySmall"
+            style="@style/TextAppearance.Material3.LabelSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/tertiary"
-            style="@style/TextAppearance.Material3.LabelSmall"
+            style="@style/TextAppearance.Material3.BodySmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"

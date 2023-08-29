@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.time.Duration
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -98,10 +99,9 @@ class FeederRepo @Inject constructor(
         }
     }
 
-    fun setOfflineMonitoring(id: ReceiverId, enabled: Boolean) {
-        log(TAG) { "setOfflineMonitoring($id,$enabled)" }
+    fun setOfflineCheckTimeout(id: ReceiverId, timeout: Duration?) {
+        log(TAG) { "setOfflineCheckTimeout($id,$timeout)" }
     }
-
 
     companion object {
         private val TAG = logTag("Feeder", "Repo")
