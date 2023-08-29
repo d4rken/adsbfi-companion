@@ -10,6 +10,7 @@ import eu.darken.adsbfi.common.navigation.findNavController
 import eu.darken.adsbfi.common.theming.Theming
 import eu.darken.adsbfi.common.uix.Activity2
 import eu.darken.adsbfi.databinding.MainActivityBinding
+import eu.darken.adsbfi.main.ui.main.MainFragmentDirections
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,6 +41,10 @@ class MainActivity : Activity2() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(B_KEY_SPLASH, showSplashScreen)
         super.onSaveInstanceState(outState)
+    }
+
+    fun goToSettings() {
+        navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment())
     }
 
     companion object {

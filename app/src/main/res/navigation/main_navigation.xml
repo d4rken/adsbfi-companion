@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/settingsContainerFragment"
-        android:name="eu.darken.adsbfi.main.ui.settings.SettingsIndexFragment"
+        android:name="eu.darken.adsbfi.main.ui.settings.SettingsFragment"
         tools:layout="@layout/settings_fragment" />
 
     <fragment

@@ -2,7 +2,6 @@ package eu.darken.adsbfi.main.ui.settings.support
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eu.darken.adsbfi.common.InstallId
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.recorder.core.RecorderModule
@@ -15,17 +14,12 @@ import javax.inject.Inject
 class SupportViewModel @Inject constructor(
     @Suppress("unused") private val handle: SavedStateHandle,
     dispatcherProvider: DispatcherProvider,
-    private val installId: InstallId,
     private val recorderModule: RecorderModule,
 ) : ViewModel3(dispatcherProvider) {
 
     val clipboardEvent = SingleLiveEvent<String>()
 
     val isRecording = recorderModule.state.map { it.isRecording }.asLiveData2()
-
-    fun copyInstallID() = launch {
-        clipboardEvent.postValue(installId.id)
-    }
 
     fun startDebugLog() = launch {
         log { "startDebugLog()" }

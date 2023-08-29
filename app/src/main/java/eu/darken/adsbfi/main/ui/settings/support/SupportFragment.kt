@@ -30,16 +30,7 @@ class SupportFragment : PreferenceFragment2() {
     @Inject lateinit var clipboardHelper: ClipboardHelper
     @Inject lateinit var webpageTool: WebpageTool
 
-    private val installIdPref by lazy { findPreference<Preference>("support.installid")!! }
     private val debugLogPref by lazy { findPreference<Preference>("support.debuglog")!! }
-
-    override fun onPreferencesCreated() {
-        installIdPref.setOnPreferenceClickListener {
-            vm.copyInstallID()
-            true
-        }
-        super.onPreferencesCreated()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         vm.clipboardEvent.observe2(this) { installId ->

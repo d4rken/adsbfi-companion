@@ -35,4 +35,8 @@ abstract class ViewModel3(
     fun NavDirections.navigate() {
         navVia(navEvents)
     }
+
+    fun popNavStack() {
+        navEvents.postValue(null)
+    }
 }

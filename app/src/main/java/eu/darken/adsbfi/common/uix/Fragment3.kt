@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import eu.darken.adsbfi.common.debug.logging.log
@@ -57,5 +58,17 @@ abstract class Fragment3(@LayoutRes layoutRes: Int?) : Fragment2(layoutRes) {
 
     fun NavDirections.navigate() {
         doNavigate(this, customNavController ?: findNavController())
+    }
+
+    fun getTopLevelNavController(): NavController? {
+        var parentFragment = parentFragment
+        while (parentFragment != null) {
+            if (parentFragment is NavHostFragment) {
+                return parentFragment.navController
+
+            }
+            parentFragment = parentFragment.parentFragment
+        }
+        return null
     }
 }

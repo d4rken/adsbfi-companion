@@ -16,15 +16,6 @@
         android:title="@string/settings_licenses_label"
         app:iconSpaceReserved="false">
         <eu.darken.adsbfi.common.preferences.IntentPreference
-            android:key="license.bugsnag"
-            android:summary="Client side library for crash monitoring via bugsnag.com. (MIT)"
-            android:title="Bugsnag"
-            app:iconSpaceReserved="false">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/bugsnag/bugsnag-android" />
-        </eu.darken.adsbfi.common.preferences.IntentPreference>
-        <eu.darken.adsbfi.common.preferences.IntentPreference
             android:key="license.semver"
             android:summary="Kotlin data class for Semantic Versioning 2.0.0 specification (SemVer) (MIT)"
             android:title="SemVer"

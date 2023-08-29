@@ -21,11 +21,20 @@
 
     <eu.darken.adsbfi.common.preferences.IntentPreference
         android:icon="@drawable/ic_discord_24"
-        android:summary="@string/discord_description"
-        android:title="@string/discord_label">
+        android:summary="The official adsb.fi Discord"
+        android:title="adsb.fi Discord">
         <intent
             android:action="android.intent.action.VIEW"
             android:data="https://discord.gg/adsb" />
+    </eu.darken.adsbfi.common.preferences.IntentPreference>
+
+    <eu.darken.adsbfi.common.preferences.IntentPreference
+        android:icon="@drawable/ic_discord_24"
+        android:summary="The app developers own Discord community"
+        android:title="darken\'s Discord">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="https://discord.gg/ENtVkMHqZg" />
     </eu.darken.adsbfi.common.preferences.IntentPreference>
 
     <PreferenceCategory app:title="@string/settings_category_other_label">
@@ -34,10 +43,5 @@
             android:key="support.debuglog"
             android:summary="@string/support_debuglog_desc"
             android:title="@string/support_debuglog_label" />
-        <Preference
-            android:icon="@drawable/ic_id_24"
-            android:key="support.installid"
-            android:summary="@string/support_installid_desc"
-            android:title="@string/support_installid_label" />
     </PreferenceCategory>
 </PreferenceScreen>
