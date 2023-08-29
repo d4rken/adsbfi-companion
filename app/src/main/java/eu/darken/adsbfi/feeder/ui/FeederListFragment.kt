@@ -18,6 +18,7 @@ import eu.darken.adsbfi.databinding.FeederListFragmentBinding
 import eu.darken.adsbfi.main.ui.MainActivity
 import java.util.UUID
 
+
 @AndroidEntryPoint
 class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
 
@@ -44,14 +45,19 @@ class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
             }
         }
 
+        ui.swipeRefreshContainer.setOnRefreshListener { vm.refresh() }
+
         val adapter = FeederListAdapter()
         ui.list.setupDefaults(adapter, dividers = false)
 
         vm.state.observe2(ui) { state ->
-            list.isInvisible = false
+            swipeRefreshContainer.isInvisible = false
             loadingContainer.isGone = true
+
             emptyContainer.isVisible = state.items.isEmpty()
-            mainAction.isVisible = state.items.isNotEmpty()
+            mainAction.isVisible = state.items.isNotEmpty() && !state.isRefreshing
+
+            swipeRefreshContainer.isRefreshing = state.isRefreshing
 
             adapter.update(state.items)
             toolbar.subtitle = resources.getQuantityString(R.plurals.feeder_yours_x_active_msg, 0, state.items.size)

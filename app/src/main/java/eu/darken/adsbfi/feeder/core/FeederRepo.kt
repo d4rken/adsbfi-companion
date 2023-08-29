@@ -16,6 +16,7 @@ import eu.darken.adsbfi.feeder.core.stats.FeederStatsDatabase
 import eu.darken.adsbfi.feeder.core.stats.MlatStatsEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -129,6 +130,8 @@ class FeederRepo @Inject constructor(
                     log(TAG) { "Updating mlat stats : $it" }
                     feederStatsDatabase.mlatStats.insert(it)
                 }
+
+            delay(1000)
         } finally {
             isRefreshing.value = false
         }

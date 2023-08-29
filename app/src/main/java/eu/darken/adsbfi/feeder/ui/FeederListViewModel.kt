@@ -47,6 +47,7 @@ class FeederListViewModel @Inject constructor(
         }
         State(
             items = items,
+            isRefreshing = isRefreshing,
         )
     }.asLiveData2()
 

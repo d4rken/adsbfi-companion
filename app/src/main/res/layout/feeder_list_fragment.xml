@@ -21,19 +21,25 @@
             app:title="@string/feeder_page_label"
             tools:subtitle="9 active" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingVertical="8dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:listitem="@layout/feeder_list_default_item"
-            tools:visibility="visible" />
+            tools:visibility="visible">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingVertical="8dp"
+                tools:listitem="@layout/feeder_list_default_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <LinearLayout
             android:id="@+id/empty_container"
@@ -42,10 +48,10 @@
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/list"
-            app:layout_constraintEnd_toEndOf="@id/list"
-            app:layout_constraintStart_toStartOf="@id/list"
-            app:layout_constraintTop_toTopOf="@id/list"
+            app:layout_constraintBottom_toBottomOf="@id/swipe_refresh_container"
+            app:layout_constraintEnd_toEndOf="@id/swipe_refresh_container"
+            app:layout_constraintStart_toStartOf="@id/swipe_refresh_container"
+            app:layout_constraintTop_toTopOf="@id/swipe_refresh_container"
             tools:visibility="visible">
 
             <com.google.android.material.textview.MaterialTextView
@@ -67,10 +73,10 @@
             android:id="@+id/loading_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/list"
-            app:layout_constraintEnd_toEndOf="@id/list"
-            app:layout_constraintStart_toStartOf="@id/list"
-            app:layout_constraintTop_toTopOf="@id/list" />
+            app:layout_constraintBottom_toBottomOf="@id/swipe_refresh_container"
+            app:layout_constraintEnd_toEndOf="@id/swipe_refresh_container"
+            app:layout_constraintStart_toStartOf="@id/swipe_refresh_container"
+            app:layout_constraintTop_toTopOf="@id/swipe_refresh_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,4 +89,5 @@
         android:contentDescription="@string/general_refresh_action"
         android:src="@drawable/ic_refresh_24"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
