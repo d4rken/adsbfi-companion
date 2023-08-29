@@ -13,6 +13,7 @@
     <string name="general_continue_action">Continue</string>
     <string name="general_cancel_action">Cancel</string>
     <string name="general_refresh_action">Refresh</string>
+    <string name="general_add_action">Add</string>
 
     <string name="generic_loading_label_0">Soon™</string>
     <string name="generic_loading_label_1">Passing the butter</string>
@@ -80,6 +81,13 @@
         <item quantity="one">You have %d active feeder</item>
         <item quantity="other">You have %d active feeders</item>
     </plurals>
+    <string name="feeder_list_add_yours_now_msg">Add your feeder now!</string>
+    <string name="feeder_list_add_your_feeder_action">Add feeder</string>
+    <string name="feeder_list_add_title">New feeder</string>
+    <string name="feeder_list_add_message">Enter your feeders UUID</string>
 
     <string name="alerts_page_label">Alerts</string>
+
+    <string name="feeder_beast_stats_label">Beast stats</string>
+    <string name="feeder_mlat_stats_label">MLAT stats</string>
 </resources>

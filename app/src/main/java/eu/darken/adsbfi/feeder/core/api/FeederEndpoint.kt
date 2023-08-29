@@ -37,8 +37,25 @@ class FeederEndpoint @Inject constructor(
     suspend fun getFeeder(ids: List<ReceiverId>): FeederInfos = withContext(dispatcherProvider.IO) {
         log(TAG) { "getFeeder(ids=$ids)" }
 
-        val commaSeperatedIds = ids.stream().map { it.toString() }.collect(Collectors.joining(","))
-        api.getFeeder(commaSeperatedIds)
+        ids
+            .chunked(5)
+            .map { it.stream().map { it.toString() }.collect(Collectors.joining(",")) }
+            .map { api.getFeeder(it) }
+            .toList()
+            .let { infos ->
+                val beasts = infos.flatMap { it.beastInfos }
+                val mlats = infos.flatMap { it.mlatInfos }
+                val anywheres = infos.mapNotNull { it.anywhereLink }
+                FeederInfos(
+                    beastInfos = beasts,
+                    mlatInfos = mlats,
+                    anywhereLink = anywheres
+                        .flatMap { it.removePrefix("https://globe.adsb.fi/?feed=").split(",") }
+                        .toList()
+                        .let { "https://globe.adsb.fi/?feed=${it.joinToString(",")}" }
+
+                )
+            }
     }
 
     companion object {

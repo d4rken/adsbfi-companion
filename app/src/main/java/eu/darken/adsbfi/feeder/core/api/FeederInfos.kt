@@ -8,7 +8,7 @@ import eu.darken.adsbfi.feeder.core.ReceiverId
 data class FeederInfos(
     @Json(name = "beast") val beastInfos: List<Beast>,
     @Json(name = "mlat") val mlatInfos: List<Mlat>,
-    @Json(name = "anywhere") val anywhereLink: String,
+    @Json(name = "anywhere") val anywhereLink: String?,
 ) {
 
     @JsonClass(generateAdapter = true)
