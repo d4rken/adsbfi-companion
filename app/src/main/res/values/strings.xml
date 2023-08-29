@@ -72,9 +72,9 @@
     <string name="changelog_label">Changelog</string>
     <string name="settings_acknowledgements_label">Acknowledgements</string>
 
-    <string name="onboarding_body1">1</string>
-    <string name="onboarding_body2">2</string>
-    <string name="onboarding_body3">3</string>
+    <string name="onboarding_body1">This is a companion app for adsb.fi community members!</string>
+    <string name="onboarding_body2">adsb.fi is a community-driven flight tracker with over 1600 feeders around the world. It provides open and unfiltered access to worldwide air traffic data.</string>
+    <string name="onboarding_body3">This app has no ads and doesn\'t sell your data (just like adsb.fi).</string>
 
     <string name="feeder_page_label">Feeder</string>
     <plurals name="feeder_yours_x_active_msg">
