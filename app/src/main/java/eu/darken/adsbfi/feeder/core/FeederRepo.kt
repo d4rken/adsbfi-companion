@@ -51,7 +51,7 @@ class FeederRepo @Inject constructor(
                     positions = beast?.positions,
                     positionRate = beast?.positionRate,
                     messageRate = beast?.messageRate,
-                    latency = beast?.recentRtt,
+//                    latency = beast?.recentRtt,
                 ),
                 mlatStats = MlatStats(
                     user = mlat?.user,

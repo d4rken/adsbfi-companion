@@ -18,7 +18,7 @@ data class FeederInfos(
         @Json(name = "connTime") val connTime: Long,
         @Json(name = "messageRate") val messageRate: Double,
         @Json(name = "positionRate") val positionRate: Double,
-        @Json(name = "recentRtt") val recentRtt: Long,
+//        @Json(name = "recentRtt") val recentRtt: Long,
         @Json(name = "positions") val positions: Long,
 
         )

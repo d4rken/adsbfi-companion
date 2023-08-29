@@ -8,5 +8,5 @@ data class BeastStats(
     val positions: Long?,
     val positionRate: Double?,
     val messageRate: Double?,
-    val latency: Long?,
+//    val latency: Long?,
 )
