@@ -37,7 +37,7 @@ class DefaultFeederVH(parent: ViewGroup) :
         beastBandwidthRate.text = feeder.beastStats?.bandwidth?.let { "$it KBit/s" } ?: "Bandwith unavailable"
 
         mlatMsgRate.text = feeder.mlatStats?.messageRate?.let { "$it MSG/s" } ?: "MSG/s unavailable"
-        mlatOutlierPercent.text = feeder.mlatStats?.outliers?.let { "$it% outliers" } ?: "Outliers unavailable"
+        mlatOutlierPercent.text = feeder.mlatStats?.outlierPercent?.let { "$it% outliers" } ?: "Outliers unavailable"
 
         root.apply {
             setOnClickListener { item.onTap(item) }

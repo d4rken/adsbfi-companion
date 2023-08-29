@@ -19,7 +19,7 @@ data class FeederInfos(
         @Json(name = "messageRate") val messageRate: Double,
         @Json(name = "positionRate") val positionRate: Double,
 //        @Json(name = "recentRtt") val recentRtt: Long,
-        @Json(name = "positions") val positions: Long,
+        @Json(name = "positions") val positions: Int,
 
         )
 
@@ -27,8 +27,8 @@ data class FeederInfos(
     data class Mlat(
         @Json(name = "user") val user: String,
         @Json(name = "uuid") val uuid: ReceiverId,
-        @Json(name = "lat") val lat: Double,
-        @Json(name = "lon") val lon: Double,
+        @Json(name = "lat") val lat: Double?,
+        @Json(name = "lon") val lon: Double?,
         @Json(name = "privacy") val privacy: Boolean,
         @Json(name = "messageRate") val messageRate: Double,
         @Json(name = "peerCount") val peerCount: Int,

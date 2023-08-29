@@ -32,7 +32,8 @@ class FeederListViewModel @Inject constructor(
     val state = combine(
         refreshTimer,
         feederRepo.feeders,
-    ) { _, feeders ->
+        feederRepo.isRefreshing
+    ) { _, feeders, isRefreshing ->
         val items = feeders.map { feeder ->
             DefaultFeederVH.Item(
                 feeder = feeder,
@@ -61,5 +62,6 @@ class FeederListViewModel @Inject constructor(
 
     data class State(
         val items: List<FeederListAdapter.Item>,
+        val isRefreshing: Boolean = false,
     )
 }

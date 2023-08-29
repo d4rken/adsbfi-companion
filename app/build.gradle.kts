@@ -135,6 +135,12 @@ android {
         }
     }
     namespace = "eu.darken.adsbfi"
+
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 }
 
 dependencies {
@@ -153,4 +159,9 @@ dependencies {
     implementation("net.swiftzer.semver:semver:1.3.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+    annotationProcessor("androidx.room:room-compiler:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 }

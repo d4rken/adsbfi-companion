@@ -34,7 +34,7 @@ class FeederEndpoint @Inject constructor(
     }
 
 
-    suspend fun getFeeder(ids: List<ReceiverId>): FeederInfos = withContext(dispatcherProvider.IO) {
+    suspend fun getFeeder(ids: Set<ReceiverId>): FeederInfos = withContext(dispatcherProvider.IO) {
         log(TAG) { "getFeeder(ids=$ids)" }
 
         ids
