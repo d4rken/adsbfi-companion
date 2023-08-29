@@ -53,7 +53,6 @@ class FeederEndpoint @Inject constructor(
                         .flatMap { it.removePrefix("https://globe.adsb.fi/?feed=").split(",") }
                         .toList()
                         .let { "https://globe.adsb.fi/?feed=${it.joinToString(",")}" }
-
                 )
             }
     }

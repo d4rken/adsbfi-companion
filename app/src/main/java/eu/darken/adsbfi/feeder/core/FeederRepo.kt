@@ -98,6 +98,10 @@ class FeederRepo @Inject constructor(
         }
     }
 
+    fun setOfflineMonitoring(id: ReceiverId, enabled: Boolean) {
+        log(TAG) { "setOfflineMonitoring($id,$enabled)" }
+    }
+
 
     companion object {
         private val TAG = logTag("Feeder", "Repo")

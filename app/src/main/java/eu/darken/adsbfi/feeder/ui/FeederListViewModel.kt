@@ -13,7 +13,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.isActive
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,11 +33,11 @@ class FeederListViewModel @Inject constructor(
         refreshTimer,
         feederRepo.feeders,
     ) { _, feeders ->
-        val items = feeders.map {
+        val items = feeders.map { feeder ->
             DefaultFeederVH.Item(
-                feeder = it,
+                feeder = feeder,
                 onTap = {
-
+                    FeederListFragmentDirections.actionFeederToFeederActionDialog(feeder.id).navigate()
                 },
                 onLongPress = {
 
@@ -51,7 +50,7 @@ class FeederListViewModel @Inject constructor(
     }.asLiveData2()
 
     fun addFeeder(rawId: String) = launch {
-        val receiverId: ReceiverId = UUID.fromString(rawId.trim())
+        val receiverId: ReceiverId = rawId.trim()
         feederRepo.addFeeder(receiverId)
     }
 

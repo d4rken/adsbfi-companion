@@ -15,6 +15,7 @@ import eu.darken.adsbfi.common.uix.Fragment3
 import eu.darken.adsbfi.common.viewbinding.viewBinding
 import eu.darken.adsbfi.databinding.CommonTextinputDialogBinding
 import eu.darken.adsbfi.databinding.FeederListFragmentBinding
+import eu.darken.adsbfi.main.ui.MainActivity
 import java.util.UUID
 
 @AndroidEntryPoint
@@ -33,6 +34,10 @@ class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
                         true
                     }
 
+                    R.id.action_settings -> {
+                        (requireActivity() as MainActivity).goToSettings()
+                        true
+                    }
 
                     else -> false
                 }

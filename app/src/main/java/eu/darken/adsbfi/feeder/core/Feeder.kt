@@ -9,10 +9,11 @@ data class Feeder(
     val config: FeederConfig,
     val beastStats: BeastStats?,
     val mlatStats: MlatStats?,
+    val isMonitored: Boolean = false,
 ) {
 
     val label: String
-        get() = mlatStats?.user ?: config.receiverId.toString().takeLast(5)
+        get() = mlatStats?.user ?: config.receiverId.takeLast(5)
 
     val lastSeen: Instant?
         get() = listOfNotNull(beastStats?.receivedAt, mlatStats?.receivedAt).maxOrNull()
