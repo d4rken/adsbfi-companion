@@ -18,12 +18,33 @@
             style="@style/TextAppearance.Material3.TitleSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/monitor_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="T-EEEE1234" />
+
+        <FrameLayout
+            android:id="@+id/monitor_container"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/last_seen"
+            app:layout_constraintEnd_toStartOf="@id/last_seen"
+            app:layout_constraintStart_toEndOf="@id/receiver_name"
+            app:layout_constraintTop_toTopOf="@id/last_seen">
+
+            <ImageView
+                android:id="@+id/monitor_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_alarm_bell_24"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </FrameLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/last_seen"

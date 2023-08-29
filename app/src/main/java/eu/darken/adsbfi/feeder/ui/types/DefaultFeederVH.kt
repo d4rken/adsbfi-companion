@@ -2,6 +2,7 @@ package eu.darken.adsbfi.feeder.ui.types
 
 import android.text.format.DateUtils
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import eu.darken.adsbfi.R
 import eu.darken.adsbfi.common.lists.BindableVH
 import eu.darken.adsbfi.databinding.FeederListDefaultItemBinding
@@ -38,6 +39,11 @@ class DefaultFeederVH(parent: ViewGroup) :
 
         mlatMsgRate.text = feeder.mlatStats?.messageRate?.let { "$it MSG/s" } ?: "MSG/s unavailable"
         mlatOutlierPercent.text = feeder.mlatStats?.outlierPercent?.let { "$it% outliers" } ?: "Outliers unavailable"
+
+        monitorIcon.isGone = feeder.config.offlineCheckTimeout == null
+        monitorIcon.setImageResource(
+            if (feeder.isOffline) R.drawable.ic_fire_alert_24 else R.drawable.ic_alarm_bell_24
+        )
 
         root.apply {
             setOnClickListener { item.onTap(item) }
