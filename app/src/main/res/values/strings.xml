@@ -14,6 +14,7 @@
     <string name="general_cancel_action">Cancel</string>
     <string name="general_refresh_action">Refresh</string>
     <string name="general_add_action">Add</string>
+    <string name="general_remove_action">Remove</string>
 
     <string name="generic_loading_label_0">Soon™</string>
     <string name="generic_loading_label_1">Passing the butter</string>
@@ -74,6 +75,8 @@
     <string name="onboarding_body2">adsb.fi is a community-driven flight tracker with over 1600 feeders around the world. It provides open and unfiltered access to worldwide air traffic data.</string>
     <string name="onboarding_body3">This app has no ads and doesn\'t sell your data (just like adsb.fi).</string>
 
+    <string name="alerts_page_label">Alerts</string>
+
     <string name="feeder_page_label">Feeder</string>
     <plurals name="feeder_yours_x_active_msg">
         <item quantity="one">You have %d active feeder</item>
@@ -83,10 +86,11 @@
     <string name="feeder_list_add_your_feeder_action">Add feeder</string>
     <string name="feeder_list_add_title">New feeder</string>
     <string name="feeder_list_add_message">Enter your feeders UUID</string>
-
-    <string name="alerts_page_label">Alerts</string>
-
     <string name="feeder_beast_stats_label">Beast stats</string>
     <string name="feeder_mlat_stats_label">MLAT stats</string>
     <string name="feeder_monitor_offline_label">Notify when offline</string>
+    <string name="feeder_remove_action">Remove feeder</string>
+
+    <string name="feeder_remove_confirmation_title">Confirmation</string>
+    <string name="feeder_remove_confirmation_message">Remove this feeder from the app?</string>
 </resources>

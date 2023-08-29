@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.fragment.app.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import eu.darken.adsbfi.R
 import eu.darken.adsbfi.common.BuildConfigWrap
 import eu.darken.adsbfi.common.uix.BottomSheetDialogFragment2
 import eu.darken.adsbfi.databinding.FeederActionDialogBinding
@@ -35,6 +37,19 @@ class FeederActionDialog : BottomSheetDialogFragment2() {
             setOnClickListener { vm.toggleNotifyWhenOffline() }
         }
 
+        ui.removeFeederAction.setOnClickListener { vm.removeFeeder() }
+
+
+        vm.events.observe2(ui) { event ->
+            when (event) {
+                is FeederActionEvents.RemovalConfirmation -> MaterialAlertDialogBuilder(requireContext()).apply {
+                    setTitle(R.string.feeder_remove_confirmation_title)
+                    setMessage(R.string.feeder_remove_confirmation_message)
+                    setPositiveButton(R.string.general_remove_action) { _, _ -> vm.removeFeeder(confirmed = true) }
+                    setNegativeButton(R.string.general_cancel_action) { _, _ -> }
+                }.show()
+            }
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }

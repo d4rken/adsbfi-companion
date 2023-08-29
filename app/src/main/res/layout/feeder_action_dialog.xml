@@ -90,5 +90,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/feeder_monitor_offline_label" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/remove_feeder_action"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/feeder_remove_action" />
     </LinearLayout>
 </LinearLayout>

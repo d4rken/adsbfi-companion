@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
+import eu.darken.adsbfi.common.livedata.SingleLiveEvent
 import eu.darken.adsbfi.common.navigation.navArgs
 import eu.darken.adsbfi.common.uix.ViewModel3
 import eu.darken.adsbfi.feeder.core.Feeder
@@ -32,6 +33,7 @@ class FeederActionViewModel @Inject constructor(
     private val navArgs by handle.navArgs<FeederActionDialogArgs>()
     private val feederId: ReceiverId = navArgs.receiverId
     private val trigger = MutableStateFlow(UUID.randomUUID())
+    val events = SingleLiveEvent<FeederActionEvents>()
 
     init {
         feederRepo.feeders
@@ -57,6 +59,16 @@ class FeederActionViewModel @Inject constructor(
         )
     }
         .asLiveData2()
+
+    fun removeFeeder(confirmed: Boolean = false) = launch {
+        log(TAG) { "removeFeeder()" }
+        if (!confirmed) {
+            events.postValue(FeederActionEvents.RemovalConfirmation(feederId))
+            return@launch
+        }
+
+        feederRepo.removeFeeder(feederId)
+    }
 
     fun toggleNotifyWhenOffline() = launch {
         log(TAG) { "toggleNotifyWhenOffline()" }
