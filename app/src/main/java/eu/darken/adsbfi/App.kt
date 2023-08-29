@@ -13,6 +13,7 @@ import eu.darken.adsbfi.common.debug.logging.asLog
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
 import eu.darken.adsbfi.common.theming.Theming
+import eu.darken.adsbfi.feeder.core.monitor.FeederMonitorService
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -21,6 +22,7 @@ open class App : Application(), Configuration.Provider {
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var bugReporter: AutoReporting
     @Inject lateinit var theming: Theming
+    @Inject lateinit var feederMonitorService: FeederMonitorService
 
     override fun onCreate() {
         super.onCreate()
@@ -36,6 +38,7 @@ open class App : Application(), Configuration.Provider {
         bugReporter.setup()
 
         theming.setup()
+        feederMonitorService.setup()
 
         log(TAG) { "onCreate() done! ${Exception().asLog()}" }
     }
