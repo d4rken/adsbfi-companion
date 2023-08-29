@@ -11,5 +11,8 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 
--keep,allowobfuscation,allowshrinking interface retrofit2.Call
--keep,allowobfuscation,allowshrinking class retrofit2.Response
+-if interface * { @retrofit2.http.* <methods>; }
+-keep,allowobfuscation interface * extends <1>
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+-if interface * { @retrofit2.http.* public *** *(...); }
+-keep,allowoptimization,allowshrinking,allowobfuscation class <3>
