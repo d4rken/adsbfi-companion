@@ -1,6 +1,7 @@
 package eu.darken.adsbfi
 
 import android.app.Application
+import android.util.Log.VERBOSE
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.getkeepsafe.relinker.ReLinker
@@ -44,7 +45,7 @@ open class App : Application(), Configuration.Provider {
     }
 
     override fun getWorkManagerConfiguration(): Configuration = Configuration.Builder()
-        .setMinimumLoggingLevel(android.util.Log.VERBOSE)
+        .setMinimumLoggingLevel(VERBOSE)
         .setWorkerFactory(workerFactory)
         .build()
 

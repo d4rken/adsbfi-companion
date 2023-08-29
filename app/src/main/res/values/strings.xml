@@ -93,4 +93,7 @@
 
     <string name="feeder_remove_confirmation_title">Confirmation</string>
     <string name="feeder_remove_confirmation_message">Remove this feeder from the app?</string>
+    <string name="feeder_notification_channel_title">Feeder monitor</string>
+    <string name="feeder_monitor_offline_title">Offline feeders detected</string>
+    <string name="feeder_monitor_offline_message">Some of your adsb.fi feeders are offline: %s</string>
 </resources>

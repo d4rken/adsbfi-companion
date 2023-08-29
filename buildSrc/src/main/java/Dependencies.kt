@@ -51,6 +51,8 @@ fun DependencyHandlerScope.addBase() {
     androidTestImplementation("com.google.dagger:hilt-android-testing:$daggerVersion")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$daggerVersion")
 
+    implementation("androidx.hilt:hilt-compiler:1.0.0")
+
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.annotation:annotation:1.6.0")
 }

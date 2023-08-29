@@ -1,9 +1,5 @@
 package eu.darken.adsbfi.feeder.core
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
-import eu.darken.adsbfi.common.coroutine.AppScope
-import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.INFO
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.WARN
 import eu.darken.adsbfi.common.debug.logging.log
@@ -14,7 +10,6 @@ import eu.darken.adsbfi.feeder.core.config.FeederSettings
 import eu.darken.adsbfi.feeder.core.stats.BeastStatsEntity
 import eu.darken.adsbfi.feeder.core.stats.FeederStatsDatabase
 import eu.darken.adsbfi.feeder.core.stats.MlatStatsEntity
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -32,9 +27,6 @@ import javax.inject.Singleton
 
 @Singleton
 class FeederRepo @Inject constructor(
-    @ApplicationContext private val context: Context,
-    @AppScope private val appScope: CoroutineScope,
-    private val dispatcherProvider: DispatcherProvider,
     private val feederSettings: FeederSettings,
     private val feederEndpoint: FeederEndpoint,
     private val feederStatsDatabase: FeederStatsDatabase,
@@ -90,6 +82,31 @@ class FeederRepo @Inject constructor(
         refreshStatsFor(setOf(id))
     }
 
+    suspend fun removeFeeder(id: ReceiverId) = configLock.withLock {
+        withContext(NonCancellable) {
+            log(TAG) { "removeFeeder($id)" }
+            feederSettings.feederGroup.update { group ->
+                val oldConfigs = group.configs.toMutableSet()
+
+                val toRemove = group.configs.firstOrNull { it.receiverId == id }
+                if (toRemove == null) log(TAG, WARN) { "Unknown feeder: $id" }
+                else oldConfigs.remove(toRemove)
+
+                group.copy(configs = oldConfigs)
+            }
+
+            feederStatsDatabase.apply {
+                beastStats.delete(id).also {
+                    log(TAG, INFO) { "Delete $it beast stats rows" }
+                }
+                mlatStats.delete(id).also {
+                    log(TAG, INFO) { "Delete $it mlat stats rows" }
+                }
+            }
+        }
+
+    }
+
     private suspend fun refreshStatsFor(ids: Collection<ReceiverId>) = refreshLock.withLock {
         log(TAG) { "refreshStatsfor($ids)" }
 
@@ -98,6 +115,22 @@ class FeederRepo @Inject constructor(
 
         try {
             val stats = feederEndpoint.getFeeder(ids.toSet())
+
+            feederSettings.feederGroup.update { group ->
+                val updatedConfigs = group.configs.map { config ->
+                    config.copy(
+                        user = stats.mlatInfos.singleOrNull { it.uuid == config.receiverId }?.user ?: config.user,
+                        positionLongitude = stats.mlatInfos
+                            .singleOrNull { it.uuid == config.receiverId }
+                            ?.lon ?: config.positionLongitude,
+                        positionLatitude = stats.mlatInfos
+                            .singleOrNull { it.uuid == config.receiverId }
+                            ?.lat ?: config.positionLatitude,
+                        anywhereId = null,
+                    )
+                }.toSet()
+                group.copy(configs = updatedConfigs)
+            }
 
             stats.beastInfos
                 .map {
@@ -137,36 +170,23 @@ class FeederRepo @Inject constructor(
         }
     }
 
-    suspend fun removeFeeder(id: ReceiverId) = configLock.withLock {
-        withContext(NonCancellable) {
-            log(TAG) { "removeFeeder($id)" }
-            feederSettings.feederGroup.update { group ->
-                val oldConfigs = group.configs.toMutableSet()
-
-                val toRemove = group.configs.firstOrNull { it.receiverId == id }
-                if (toRemove == null) log(TAG, WARN) { "Unknown feeder: $id" }
-                else oldConfigs.remove(toRemove)
-
-                group.copy(configs = oldConfigs)
-            }
-
-            feederStatsDatabase.apply {
-                beastStats.delete(id).also {
-                    log(TAG, INFO) { "Delete $it beast stats rows" }
-                }
-                mlatStats.delete(id).also {
-                    log(TAG, INFO) { "Delete $it mlat stats rows" }
-                }
-            }
-        }
-
-    }
-
-    fun setOfflineCheckTimeout(id: ReceiverId, timeout: Duration?) {
+    suspend fun setOfflineCheckTimeout(id: ReceiverId, timeout: Duration?) {
         log(TAG) { "setOfflineCheckTimeout($id,$timeout)" }
+
+        feederSettings.feederGroup.update { group ->
+            group.copy(
+                configs = group.configs.map { config ->
+                    if (config.receiverId != id) {
+                        return@map config
+                    }
+                    config.copy(offlineCheckTimeout = timeout)
+                }.toSet()
+            )
+        }
     }
 
     companion object {
+        private const val ANYWHERE_PREFIX = "https://globe.adsb.fi/?feed="
         private val TAG = logTag("Feeder", "Repo")
     }
 }

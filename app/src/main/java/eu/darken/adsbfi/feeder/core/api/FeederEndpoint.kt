@@ -38,7 +38,7 @@ class FeederEndpoint @Inject constructor(
         log(TAG) { "getFeeder(ids=$ids)" }
 
         ids
-            .chunked(5)
+            .chunked(25)
             .map { it.stream().map { it.toString() }.collect(Collectors.joining(",")) }
             .map { api.getFeeder(it) }
             .toList()

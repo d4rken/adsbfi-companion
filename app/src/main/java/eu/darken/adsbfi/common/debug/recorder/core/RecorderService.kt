@@ -13,7 +13,7 @@ import eu.darken.adsbfi.common.BuildConfigWrap
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
-import eu.darken.adsbfi.common.notifications.PendingIntentCompat
+import eu.darken.adsbfi.common.notifications.PendingIntentFlagCompat
 import eu.darken.adsbfi.common.uix.Service2
 import eu.darken.adsbfi.main.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
@@ -52,7 +52,7 @@ class RecorderService : Service2() {
             this,
             0,
             Intent(this, MainActivity::class.java),
-            PendingIntentCompat.FLAG_IMMUTABLE
+            PendingIntentFlagCompat.FLAG_IMMUTABLE
         )
 
         val stopPi = PendingIntent.getService(
@@ -61,7 +61,7 @@ class RecorderService : Service2() {
             Intent(this, RecorderService::class.java).apply {
                 action = STOP_ACTION
             },
-            PendingIntentCompat.FLAG_IMMUTABLE
+            PendingIntentFlagCompat.FLAG_IMMUTABLE
         )
 
         builder = NotificationCompat.Builder(this, NOTIF_CHANID_DEBUG).apply {

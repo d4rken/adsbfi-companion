@@ -8,7 +8,10 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.Bugs
+import eu.darken.adsbfi.common.debug.logging.Logging.Priority.ERROR
+import eu.darken.adsbfi.common.debug.logging.Logging.Priority.INFO
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.VERBOSE
+import eu.darken.adsbfi.common.debug.logging.asLog
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
 import eu.darken.adsbfi.feeder.core.FeederRepo
@@ -18,8 +21,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import java.time.Duration
+import java.time.Instant
 
 
 @HiltWorker
@@ -27,7 +33,8 @@ class FeederMonitorWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted private val params: WorkerParameters,
     private val dispatcherProvider: DispatcherProvider,
-    private val networkStatsRepo: FeederRepo
+    private val feederRepo: FeederRepo,
+    private val monitorNotifications: FeederMonitorNotifications,
 ) : CoroutineWorker(context, params) {
 
     private val workerScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -63,9 +70,19 @@ class FeederMonitorWorker @AssistedInject constructor(
     private suspend fun doDoWork() = withContext(dispatcherProvider.IO) {
         try {
             withTimeout(30 * 1000) {
-                networkStatsRepo.refresh()
+                try {
+                    feederRepo.refresh()
+                } catch (e: Exception) {
+                    log(TAG, ERROR) { "Failed to refresh ${e.asLog()}" }
+                }
             }
-            log(TAG) { "Worker" }
+
+            val offlineDevices = feederRepo.feeders.first()
+                .filter { it.config.offlineCheckTimeout != null }
+                .filter { Duration.between(it.lastSeen, Instant.now()) > it.config.offlineCheckTimeout }
+                .onEach { log(TAG, INFO) { "Feeder has been offline for a while... $it" } }
+
+            monitorNotifications.notifyOfOfflineDevices(offlineDevices)
         } catch (e: TimeoutCancellationException) {
             log(TAG) { "Worker ran into timeout" }
         }

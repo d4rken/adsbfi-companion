@@ -4,6 +4,7 @@ import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.await
 import eu.darken.adsbfi.common.coroutine.AppScope
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.ERROR
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.VERBOSE
@@ -13,6 +14,7 @@ import eu.darken.adsbfi.common.debug.logging.logTag
 import eu.darken.adsbfi.feeder.core.FeederRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,7 +33,7 @@ class FeederMonitorService @Inject constructor(
         require(!isInit)
         isInit = true
 
-        setupPeriodicWorker()
+        runBlocking { setupPeriodicWorker() }
 
         appScope.launch {
             try {
@@ -42,7 +44,7 @@ class FeederMonitorService @Inject constructor(
         }
     }
 
-    private fun setupPeriodicWorker() {
+    private suspend fun setupPeriodicWorker() {
         val workRequest = PeriodicWorkRequestBuilder<FeederMonitorWorker>(
             Duration.ofHours(1),
             Duration.ofMinutes(10)
@@ -58,7 +60,7 @@ class FeederMonitorService @Inject constructor(
             workRequest,
         )
 
-        operation.result.get()
+        operation.await()
     }
 
     companion object {

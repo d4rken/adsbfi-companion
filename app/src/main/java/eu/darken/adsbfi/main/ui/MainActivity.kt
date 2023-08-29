@@ -10,6 +10,7 @@ import eu.darken.adsbfi.common.navigation.findNavController
 import eu.darken.adsbfi.common.theming.Theming
 import eu.darken.adsbfi.common.uix.Activity2
 import eu.darken.adsbfi.databinding.MainActivityBinding
+import eu.darken.adsbfi.feeder.core.monitor.FeederMonitorNotifications
 import eu.darken.adsbfi.main.ui.main.MainFragmentDirections
 import javax.inject.Inject
 
@@ -24,6 +25,7 @@ class MainActivity : Activity2() {
     var showSplashScreen = true
 
     @Inject lateinit var recorderModule: RecorderModule
+    @Inject lateinit var feederMonitorNotifications: FeederMonitorNotifications
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,7 @@ class MainActivity : Activity2() {
         setContentView(ui.root)
 
         vm.readyState.observe2 { showSplashScreen = false }
+        feederMonitorNotifications.clearOfflineNotifications()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
