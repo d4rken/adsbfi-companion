@@ -24,7 +24,13 @@ class DefaultFeederVH(parent: ViewGroup) :
         payloads: List<Any>
     ) -> Unit = { item, _ ->
         val feeder = item.feeder
-        receiverName.text = feeder.label
+        receiverName.apply {
+            text = feeder.label
+            setTextColor(
+                if (feeder.isOffline) getColorForAttr(com.google.android.material.R.attr.colorError)
+                else getColorForAttr(com.google.android.material.R.attr.colorOnBackground)
+            )
+        }
 
         lastSeen.text = feeder.lastSeen?.let {
             DateUtils.getRelativeTimeSpanString(
