@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import eu.darken.adsbfi.R
-import eu.darken.adsbfi.common.BuildConfigWrap
+import eu.darken.adsbfi.common.hasApiLevel
+import eu.darken.adsbfi.common.permissions.Permission
 import eu.darken.adsbfi.common.uix.BottomSheetDialogFragment2
 import eu.darken.adsbfi.databinding.FeederActionDialogBinding
 
@@ -17,6 +18,10 @@ import eu.darken.adsbfi.databinding.FeederActionDialogBinding
 class FeederActionDialog : BottomSheetDialogFragment2() {
     override val vm: FeederActionViewModel by viewModels()
     override lateinit var ui: FeederActionDialogBinding
+
+    private val permissionlauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         ui = FeederActionDialogBinding.inflate(inflater, container, false)
@@ -33,8 +38,12 @@ class FeederActionDialog : BottomSheetDialogFragment2() {
         }
 
         ui.monitorFeederOfflineToggle.apply {
-            isGone = !BuildConfigWrap.DEBUG
-            setOnClickListener { vm.toggleNotifyWhenOffline() }
+            setOnClickListener {
+                if (hasApiLevel(33) && !Permission.POST_NOTIFICATIONS.isGranted(requireContext())) {
+                    permissionlauncher.launch(Permission.POST_NOTIFICATIONS.permissionId)
+                }
+                vm.toggleNotifyWhenOffline()
+            }
         }
 
         ui.removeFeederAction.setOnClickListener { vm.removeFeeder() }
