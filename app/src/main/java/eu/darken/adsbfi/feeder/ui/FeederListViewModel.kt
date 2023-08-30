@@ -51,9 +51,13 @@ class FeederListViewModel @Inject constructor(
         )
     }.asLiveData2()
 
-    fun addFeeder(rawId: String) = launch {
-        val receiverId: ReceiverId = rawId.trim()
-        feederRepo.addFeeder(receiverId)
+    fun addFeeders(rawId: String) = launch {
+        log(TAG) { "addFeeders($rawId)" }
+        rawId
+            .let { if (it.contains(",")) it.split(",") else setOf(it) }
+            .map { it.trim() }
+            .toSet()
+            .forEach { id: ReceiverId -> feederRepo.addFeeder(id) }
     }
 
     fun refresh() = launch {

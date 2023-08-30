@@ -85,7 +85,7 @@
     <string name="feeder_list_add_yours_now_msg">Add your feeder now!</string>
     <string name="feeder_list_add_your_feeder_action">Add feeder</string>
     <string name="feeder_list_add_title">New feeder</string>
-    <string name="feeder_list_add_message">Enter your feeders UUID</string>
+    <string name="feeder_list_add_message">Enter your feeders UUID (comma sepparated lists are supported).</string>
     <string name="feeder_beast_stats_label">Beast stats</string>
     <string name="feeder_mlat_stats_label">MLAT stats</string>
     <string name="feeder_monitor_offline_label">Notify when offline</string>

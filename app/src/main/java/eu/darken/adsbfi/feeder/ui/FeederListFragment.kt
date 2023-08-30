@@ -78,7 +78,7 @@ class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
             setMessage(R.string.feeder_list_add_message)
             setView(layout.root)
             setPositiveButton(R.string.general_add_action) { _, _ ->
-                vm.addFeeder(layout.input.text.toString())
+                vm.addFeeders(layout.input.text.toString())
             }
             setNegativeButton(R.string.general_cancel_action) { dialog, _ ->
                 dialog.dismiss()
