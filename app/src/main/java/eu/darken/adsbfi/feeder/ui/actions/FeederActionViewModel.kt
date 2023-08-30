@@ -2,12 +2,14 @@ package eu.darken.adsbfi.feeder.ui.actions
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eu.darken.adsbfi.common.WebpageTool
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
 import eu.darken.adsbfi.common.livedata.SingleLiveEvent
 import eu.darken.adsbfi.common.navigation.navArgs
 import eu.darken.adsbfi.common.uix.ViewModel3
+import eu.darken.adsbfi.feeder.core.AnywhereTool
 import eu.darken.adsbfi.feeder.core.Feeder
 import eu.darken.adsbfi.feeder.core.FeederRepo
 import eu.darken.adsbfi.feeder.core.ReceiverId
@@ -28,6 +30,8 @@ class FeederActionViewModel @Inject constructor(
     handle: SavedStateHandle,
     dispatcherProvider: DispatcherProvider,
     private val feederRepo: FeederRepo,
+    private val webpageTool: WebpageTool,
+    private val anywhereTool: AnywhereTool,
 ) : ViewModel3(dispatcherProvider) {
 
     private val navArgs by handle.navArgs<FeederActionDialogArgs>()
@@ -78,6 +82,17 @@ class FeederActionViewModel @Inject constructor(
             Duration.ofHours(6)
         }
         feederRepo.setOfflineCheckTimeout(feederId, newTimeout)
+    }
+
+    fun showFeedOnMap() = launch {
+        log(TAG) { "showFeedOnMap()" }
+        val feeder = state.value!!.feeder
+        webpageTool.open(
+            anywhereTool.createLink(
+                ids = setOf(feeder.anywhereId),
+                center = feeder.config.position,
+            ),
+        )
     }
 
     data class State(

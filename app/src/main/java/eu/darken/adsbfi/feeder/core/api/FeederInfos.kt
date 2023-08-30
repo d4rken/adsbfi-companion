@@ -3,6 +3,7 @@ package eu.darken.adsbfi.feeder.core.api
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import eu.darken.adsbfi.feeder.core.ReceiverId
+import eu.darken.adsbfi.feeder.core.config.FeederPosition
 
 @JsonClass(generateAdapter = true)
 data class FeederInfos(
@@ -34,5 +35,8 @@ data class FeederInfos(
         @Json(name = "peerCount") val peerCount: Int,
         @Json(name = "badSyncTimeout") val badSyncTimeout: Long,
         @Json(name = "outlierPercent") val outlierPercent: Float,
-    )
+    ) {
+        val position: FeederPosition?
+            get() = if (lat != null && lon != null) FeederPosition(lat, lon) else null
+    }
 }

@@ -118,15 +118,10 @@ class FeederRepo @Inject constructor(
 
             feederSettings.feederGroup.update { group ->
                 val updatedConfigs = group.configs.map { config ->
+                    val mlatInfos = stats.mlatInfos.singleOrNull { it.uuid == config.receiverId }
                     config.copy(
-                        user = stats.mlatInfos.singleOrNull { it.uuid == config.receiverId }?.user ?: config.user,
-                        positionLongitude = stats.mlatInfos
-                            .singleOrNull { it.uuid == config.receiverId }
-                            ?.lon ?: config.positionLongitude,
-                        positionLatitude = stats.mlatInfos
-                            .singleOrNull { it.uuid == config.receiverId }
-                            ?.lat ?: config.positionLatitude,
-                        anywhereId = null,
+                        user = mlatInfos?.user ?: config.user,
+                        position = mlatInfos?.position ?: config.position,
                     )
                 }.toSet()
                 group.copy(configs = updatedConfigs)

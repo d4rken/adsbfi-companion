@@ -46,6 +46,7 @@ class FeederActionDialog : BottomSheetDialogFragment2() {
             }
         }
 
+        ui.showFeedAction.setOnClickListener { vm.showFeedOnMap() }
         ui.removeFeederAction.setOnClickListener { vm.removeFeeder() }
 
 

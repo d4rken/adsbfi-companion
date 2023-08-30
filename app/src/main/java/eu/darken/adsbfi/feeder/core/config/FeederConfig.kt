@@ -8,9 +8,7 @@ import java.time.Duration
 @JsonClass(generateAdapter = true)
 data class FeederConfig(
     @Json(name = "receiverId") val receiverId: ReceiverId,
-    @Json(name = "anywhereId") val anywhereId: String? = null,
     @Json(name = "user") val user: String? = null,
-    @Json(name = "position_latitude") val positionLatitude: Double? = null,
-    @Json(name = "position_longitude") val positionLongitude: Double? = null,
+    @Json(name = "position") val position: FeederPosition? = null,
     @Json(name = "offlineCheckTimeout") val offlineCheckTimeout: Duration? = null,
 )

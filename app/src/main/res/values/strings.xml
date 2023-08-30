@@ -46,7 +46,7 @@
 
     <string name="settings_category_ui_label">User interface</string>
 
-    <string name="ui_theme_mode_setting_label">Theme mode</string>
+    <string name="ui_theme_mode_setting_label">Theme mod</string>
     <string name="ui_theme_mode_setting_explanation">The mode used when theming the app (e.g. night or day).</string>
     <string name="ui_theme_mode_dark_label">Dark</string>
     <string name="ui_theme_mode_light_label">Light</string>
@@ -90,10 +90,12 @@
     <string name="feeder_mlat_stats_label">MLAT stats</string>
     <string name="feeder_monitor_offline_label">Notify when offline</string>
     <string name="feeder_remove_action">Remove feeder</string>
+    <string name="feeder_show_map_action">Show feed on map</string>
 
     <string name="feeder_remove_confirmation_title">Confirmation</string>
     <string name="feeder_remove_confirmation_message">Remove this feeder from the app?</string>
     <string name="feeder_notification_channel_title">Feeder monitor</string>
     <string name="feeder_monitor_offline_title">Offline feeders detected</string>
     <string name="feeder_monitor_offline_message">Some of your adsb.fi feeders are offline: %s</string>
+    <string name="feeder_options_label">Options</string>
 </resources>
