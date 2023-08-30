@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -57,7 +58,7 @@ class MainFragment : Fragment3(R.layout.main_fragment) {
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.page_alerts -> {
-//                        navController.navigate(R.id.action_global_overviewFragment)
+                        Toast.makeText(requireContext(), "// TODO Soon", Toast.LENGTH_LONG).show()
                         true
                     }
 
