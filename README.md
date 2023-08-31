@@ -7,4 +7,15 @@
 )](https://github.com/d4rken/adsbfi-companion/actions)
 [![Github Downloads](https://img.shields.io/github/downloads/d4rken/adsbfi-companion/total.svg?label=GitHub%20Downloads&logo=github)](https://github.com/d4rken/adsbfi-companion/releases/latest)
 
-A companion app for https://adsb.fi
+An Android app for https://adsb.fi
+
+Current features:
+
+* View stats for your adsb.fi feeders
+* Get notifications if a feeder goes offline
+* Shortcuts to show the map from the POV of a specific feeder
+
+Planned features:
+
+* SQUAWK alerts: Notifications if specific SQUAWK codes are transmitted by aircraft
+* ICAO alerts: Notifications if an aircraft with a specific ICAO identifier is airborne
