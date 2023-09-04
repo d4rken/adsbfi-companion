@@ -14,6 +14,7 @@ import eu.darken.adsbfi.common.debug.autoreport.DebugSettings
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.VERBOSE
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
+import eu.darken.adsbfi.common.serialization.SerializationModule
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,13 +31,13 @@ class HttpModule {
     @Reusable
     @Provides
     fun loggingInterceptor(
-        debugSettings: DebugSettings,
+        debugSettings: DebugSettings? = null,
     ): HttpLoggingInterceptor {
         val logger = HttpLoggingInterceptor.Logger {
             log(TAG, VERBOSE) { it }
         }
         return HttpLoggingInterceptor(logger).apply {
-            level = if (debugSettings.isDebugMode.valueBlocking) {
+            level = if (debugSettings?.isDebugMode?.valueBlocking != false) {
                 HttpLoggingInterceptor.Level.BODY
             } else {
                 HttpLoggingInterceptor.Level.BASIC
@@ -47,8 +48,8 @@ class HttpModule {
     @Singleton
     @Provides
     fun baseHttpClient(
-        @BaseCache cache: Cache,
-        loggingInterceptor: HttpLoggingInterceptor,
+        @BaseCache cache: Cache? = null,
+        loggingInterceptor: HttpLoggingInterceptor = loggingInterceptor(),
     ): OkHttpClient = OkHttpClient().newBuilder().apply {
         cache(cache)
         connectTimeout(20L, TimeUnit.SECONDS)
