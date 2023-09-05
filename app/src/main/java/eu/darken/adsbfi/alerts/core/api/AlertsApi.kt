@@ -9,7 +9,8 @@ interface AlertsApi {
 
     @JsonClass(generateAdapter = true)
     data class Alerts(
-        @Json(name = "hexes") val hexes: List<Hex>
+        @Json(name = "hexes") val hexes: List<Hex> = emptyList(),
+        @Json(name = "squawk") val squawks: List<Squawk> = emptyList(),
     ) {
 
         @JsonClass(generateAdapter = true)
@@ -22,9 +23,23 @@ interface AlertsApi {
             @Json(name = "squawk") val squawk: String, // "1000",
             @Json(name = "alt_baro") val altitude: String, // 17975
         )
+
+        @JsonClass(generateAdapter = true)
+        data class Squawk(
+            @Json(name = "squawk") val squawk: String, // "7700"
+        )
     }
 
     @GET("companion/alerts/")
-    suspend fun getAlerts(@Query("hex", encoded = true) hexes: String): Alerts
+    suspend fun getAlerts(
+        @Query("hex", encoded = true) hexes: String,
+        @Query("squawk", encoded = true) squawks: String,
+    ): Alerts
+
+    @GET("companion/alerts/")
+    suspend fun getHexAlerts(@Query("hex", encoded = true) hexes: String): Alerts
+
+    @GET("companion/alerts/")
+    suspend fun getSquawkAlerts(@Query("squawk", encoded = true) squawks: String): Alerts
 
 }

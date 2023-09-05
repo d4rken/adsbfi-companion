@@ -55,7 +55,7 @@ class MainFragment : Fragment3(R.layout.main_fragment) {
         ui.bottomNavigation.apply {
             setupWithNavController(this, navController)
             if (savedInstanceState == null) {
-                menu.findItem(R.id.page_feeder).isChecked = true
+                menu.findItem(R.id.page_alerts).isChecked = true
             }
             setOnItemSelectedListener { item ->
                 when (item.itemId) {
