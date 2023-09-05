@@ -2,6 +2,7 @@ package eu.darken.adsbfi.alerts.core.api
 
 import dagger.Reusable
 import eu.darken.adsbfi.alerts.core.AircraftHex
+import eu.darken.adsbfi.alerts.core.SquawkCode
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.debug.logging.logTag
@@ -34,7 +35,9 @@ class AlertsEndpoint @Inject constructor(
     }
 
 
-    suspend fun getAlerts(hexes: Set<AircraftHex>): AlertsApi.Alerts = withContext(dispatcherProvider.IO) {
+    suspend fun getHexAlerts(
+        hexes: Set<AircraftHex>,
+    ): AlertsApi.Alerts = withContext(dispatcherProvider.IO) {
         log(TAG) { "getAlerts(hexes=$hexes)" }
 
         hexes
@@ -44,7 +47,29 @@ class AlertsEndpoint @Inject constructor(
                     .map { it.toString() }
                     .collect(Collectors.joining(","))
             }
-            .map { api.getAlerts(hexes = it) }
+            .map { api.getHexAlerts(it) }
+            .toList()
+            .let { alerts ->
+                AlertsApi.Alerts(
+                    hexes = alerts.flatMap { it.hexes },
+                    squawks = emptyList()
+                )
+            }
+    }
+
+    suspend fun getSquawkAlerts(
+        squawks: Set<SquawkCode>
+    ): AlertsApi.Alerts = withContext(dispatcherProvider.IO) {
+        log(TAG) { "getAlerts(squawks=$squawks)" }
+
+        squawks
+            .chunked(30)
+            .map { hexesChunk ->
+                hexesChunk.stream()
+                    .map { it.toString() }
+                    .collect(Collectors.joining(","))
+            }
+            .map { api.getSquawkAlerts(it) }
             .toList()
             .let { alerts ->
                 AlertsApi.Alerts(

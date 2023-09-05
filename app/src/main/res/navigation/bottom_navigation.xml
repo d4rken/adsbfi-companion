@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
-    app:startDestination="@id/feeder">
+    app:startDestination="@id/alerts">
 
     <action
         android:id="@+id/action_global_feeder"
@@ -27,11 +27,23 @@
     </dialog>
     <action
         android:id="@+id/action_global_alerts"
-        app:destination="@id/alertsListFragment"
+        app:destination="@id/alerts"
         app:popUpTo="@id/bottom_navigation" />
     <fragment
-        android:id="@+id/alertsListFragment"
+        android:id="@+id/alerts"
         android:name="eu.darken.adsbfi.alerts.ui.AlertsListFragment"
-        tools:layout="@layout/alerts_list_fragment" />
+        tools:layout="@layout/alerts_list_fragment">
+        <action
+            android:id="@+id/action_alerts_to_alertActionDialog"
+            app:destination="@id/alertActionDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/alertActionDialog"
+        android:name="eu.darken.adsbfi.alerts.ui.actions.AlertActionDialog"
+        tools:layout="@layout/alerts_action_dialog">
+        <argument
+            android:name="alertId"
+            app:argType="string" />
+    </dialog>
 
 </navigation>

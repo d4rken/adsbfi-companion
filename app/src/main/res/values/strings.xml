@@ -104,12 +104,24 @@
     <string name="alerts_page_label">Alerts</string>
     <string name="alerts_list_add_title">Add new alert</string>
     <plurals name="alerts_yours_x_active_msg">
-        <item quantity="one">You have %d active alerts</item>
-        <item quantity="other">You have %d active alerts</item>
+        <item quantity="one">You have %d alerts</item>
+        <item quantity="other">You have %d alerts</item>
     </plurals>
     <plurals name="alerts_yours_x_triggered_msg">
         <item quantity="one">You have %d triggered alerts</item>
         <item quantity="other">You have %d triggered alerts</item>
     </plurals>
     <string name="alerts_list_addnew_msg">Create your first aircraft alert now!</string>
+    <string name="alerts_add_alert_type_title">New alert type</string>
+    <string name="alerts_add_alert_type_label_hexcode">Aircraft hex code </string>
+    <string name="alerts_add_alert_type_label_squawk">Transponder code</string>
+    <string name="alerts_add_hexcode_title">New hexcode alert</string>
+    <string name="alerts_add_hexcode_msg">Enter the hexcode of the aircraft you want alerts for.</string>
+    <string name="alerts_add_squawk_title">New squawk alert</string>
+    <string name="alerts_add_squawk_msg">Enter the transpoder code you want to be alert of.</string>
+    <string name="alerts_squawk_error_notallowed_label">Unsupported squawk</string>
+    <string name="alerts_squawk_error_notallowed_message">Provided squawk not allowed. Supported are %s</string>
+    <string name="alerts_item_squawk_subtitle">Transponder code</string>
+    <string name="alerts_item_hexcode_subtitle">ICAO 24-bit address</string>
+    <string name="alerts_hexcode_notfound_message">Aircraft has not been spotted.</string>
 </resources>
