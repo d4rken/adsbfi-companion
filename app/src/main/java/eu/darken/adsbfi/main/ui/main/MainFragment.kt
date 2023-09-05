@@ -45,6 +45,9 @@ class MainFragment : Fragment3(R.layout.main_fragment) {
                     }
                     requireActivity().startActivity(intent)
                 }
+                .apply {
+                    anchorView = ui.bottomNavigation
+                }
                 .show()
         }
 
