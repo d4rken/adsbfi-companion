@@ -2,6 +2,7 @@ package eu.darken.adsbfi.feeder.ui
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eu.darken.adsbfi.common.WebpageTool
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
 import eu.darken.adsbfi.common.uix.ViewModel3
@@ -20,6 +21,7 @@ class FeederListViewModel @Inject constructor(
     @Suppress("UNUSED_PARAMETER") handle: SavedStateHandle,
     dispatcherProvider: DispatcherProvider,
     private val feederRepo: FeederRepo,
+    private val webpageTool: WebpageTool,
 ) : ViewModel3(dispatcherProvider = dispatcherProvider) {
 
     private val refreshTimer = callbackFlow {
@@ -63,6 +65,10 @@ class FeederListViewModel @Inject constructor(
     fun refresh() = launch {
         log(TAG) { "refresh()" }
         feederRepo.refresh()
+    }
+
+    fun startFeeding() = launch {
+        webpageTool.open("https://github.com/adsbfi/adsb-fi-scripts")
     }
 
     data class State(

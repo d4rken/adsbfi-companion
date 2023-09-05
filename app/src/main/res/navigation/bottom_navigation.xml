@@ -25,5 +25,13 @@
             android:name="receiverId"
             app:argType="string" />
     </dialog>
+    <action
+        android:id="@+id/action_global_alerts"
+        app:destination="@id/alertsListFragment"
+        app:popUpTo="@id/bottom_navigation" />
+    <fragment
+        android:id="@+id/alertsListFragment"
+        android:name="eu.darken.adsbfi.alerts.ui.AlertsListFragment"
+        tools:layout="@layout/alerts_list_fragment" />
 
 </navigation>
