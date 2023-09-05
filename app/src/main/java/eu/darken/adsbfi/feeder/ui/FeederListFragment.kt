@@ -35,6 +35,11 @@ class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
                         true
                     }
 
+                    R.id.action_sponsor_development -> {
+                        (requireActivity() as MainActivity).goSponsor()
+                        true
+                    }
+
                     R.id.action_settings -> {
                         (requireActivity() as MainActivity).goToSettings()
                         true
@@ -64,6 +69,8 @@ class FeederListFragment : Fragment3(R.layout.feeder_list_fragment) {
         }
 
         ui.addFeederAction.setOnClickListener { showAddFeederDialog() }
+
+        ui.startFeedingAction.setOnClickListener { vm.startFeeding() }
 
         ui.mainAction.setOnClickListener { vm.refresh() }
 

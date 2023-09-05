@@ -15,6 +15,7 @@
     <string name="general_refresh_action">Refresh</string>
     <string name="general_add_action">Add</string>
     <string name="general_remove_action">Remove</string>
+    <string name="general_sponsor_action">Sponsor development</string>
 
     <string name="generic_loading_label_0">Soon™</string>
     <string name="generic_loading_label_1">Passing the butter</string>
@@ -75,14 +76,13 @@
     <string name="onboarding_body2">adsb.fi is a community-driven flight tracker with over 1600 feeders around the world. It provides open and unfiltered access to worldwide air traffic data.</string>
     <string name="onboarding_body3">This app has no ads and doesn\'t sell your data (just like adsb.fi).</string>
 
-    <string name="alerts_page_label">Alerts</string>
 
     <string name="feeder_page_label">Feeder</string>
     <plurals name="feeder_yours_x_active_msg">
         <item quantity="one">You have %d active feeder</item>
         <item quantity="other">You have %d active feeders</item>
     </plurals>
-    <string name="feeder_list_add_yours_now_msg">Add your feeder now!</string>
+    <string name="feeder_list_add_yours_now_msg">Add your first feeder now!</string>
     <string name="feeder_list_add_your_feeder_action">Add feeder</string>
     <string name="feeder_list_add_title">New feeder</string>
     <string name="feeder_list_add_message">Enter your feeders UUID (comma sepparated lists are supported).</string>
@@ -98,4 +98,18 @@
     <string name="feeder_monitor_offline_title">Offline feeders detected</string>
     <string name="feeder_monitor_offline_message">Some of your adsb.fi feeders are offline: %s</string>
     <string name="feeder_options_label">Options</string>
+    <string name="feeder_startfeeding_msg">Not feeding adsb.fi yet? Start now, it\'s not rocket science 🚀.</string>
+    <string name="feeder_startfeeding_action">Start feeding</string>
+
+    <string name="alerts_page_label">Alerts</string>
+    <string name="alerts_list_add_title">Add new alert</string>
+    <plurals name="alerts_yours_x_active_msg">
+        <item quantity="one">You have %d active alerts</item>
+        <item quantity="other">You have %d active alerts</item>
+    </plurals>
+    <plurals name="alerts_yours_x_triggered_msg">
+        <item quantity="one">You have %d triggered alerts</item>
+        <item quantity="other">You have %d triggered alerts</item>
+    </plurals>
+    <string name="alerts_list_addnew_msg">Create your first aircraft alert now!</string>
 </resources>

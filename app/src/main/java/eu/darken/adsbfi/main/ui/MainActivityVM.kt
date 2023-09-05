@@ -2,6 +2,7 @@ package eu.darken.adsbfi.main.ui
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eu.darken.adsbfi.common.SponsorHelper
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.Logging.Priority.VERBOSE
 import eu.darken.adsbfi.common.debug.logging.log
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class MainActivityVM @Inject constructor(
     dispatcherProvider: DispatcherProvider,
     @Suppress("UNUSED_PARAMETER") handle: SavedStateHandle,
+    private val sponsorHelper: SponsorHelper,
 ) : ViewModel2(dispatcherProvider = dispatcherProvider) {
 
     private val stateFlow = MutableStateFlow(State())
@@ -27,6 +29,10 @@ class MainActivityVM @Inject constructor(
 
     fun onGo() {
         stateFlow.value = stateFlow.value.copy(ready = true)
+    }
+
+    fun goSponsor() = launch {
+        sponsorHelper.openSponsorPage()
     }
 
     data class State(

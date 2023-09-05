@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/menu_feeder_list"
-            app:title="@string/feeder_page_label"
+            app:title="@string/app_name"
             tools:subtitle="9 active" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -57,6 +57,8 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginHorizontal="32dp"
                 android:text="@string/feeder_list_add_yours_now_msg" />
 
             <com.google.android.material.button.MaterialButton
@@ -67,6 +69,21 @@
                 android:text="@string/feeder_list_add_your_feeder_action"
                 app:icon="@drawable/ic_plus_network_24" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/feeder_startfeeding_msg" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/start_feeding_action"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feeder_startfeeding_action"
+                app:icon="@drawable/ic_heart_24" />
         </LinearLayout>
 
         <eu.darken.adsbfi.common.LoadingBoxView

@@ -50,6 +50,10 @@ class MainActivity : Activity2() {
         navController.navigate(MainFragmentDirections.actionMainFragmentToSettingsContainerFragment())
     }
 
+    fun goSponsor() {
+        vm.goSponsor()
+    }
+
     companion object {
         private const val B_KEY_SPLASH = "showSplashScreen"
     }
