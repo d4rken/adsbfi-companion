@@ -22,8 +22,14 @@ class AlertsEndpointTest : BaseTest() {
     }
 
     @Test
-    fun `de-serialization`() = runTest {
-        val alerts = endpoint.getAlerts(setOf(""))
-        alerts shouldNotBe null
+    fun `de-serialization of squawks`() = runTest {
+        val squawks = endpoint.getSquawkAlerts(setOf("7700,7600,7500"))
+        squawks shouldNotBe null
+    }
+
+    @Test
+    fun `de-serialization of hexes`() = runTest {
+        val hexes = endpoint.getHexAlerts(setOf(""))
+        hexes shouldNotBe null
     }
 }
