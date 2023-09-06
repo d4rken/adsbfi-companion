@@ -54,6 +54,12 @@ class FeederMonitorNotifications @Inject constructor(
 
     fun notifyOfOfflineDevices(offlineFeeders: Collection<Feeder>) {
         log(TAG) { "notifyOfOfflineDevices($offlineFeeders)" }
+
+        if (offlineFeeders.isEmpty()) {
+            clearOfflineNotifications()
+            return
+        }
+
         val notification = builder.apply {
             clearActions()
             setContentTitle(context.getString(R.string.feeder_monitor_offline_title))
