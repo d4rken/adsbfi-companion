@@ -61,6 +61,9 @@ class AlertsRepo @Inject constructor(
     suspend fun refresh() {
         log(TAG) { "refresh()" } // TODO
         refreshTrigger.value = UUID.randomUUID()
+        refreshLock.withLock {
+
+        }
     }
 
     suspend fun addHexAlert(newAlert: NewHexAlert) {
@@ -105,6 +108,36 @@ class AlertsRepo @Inject constructor(
                     }
 
                     group.copy(configs = oldConfigs + SquawkAlertConfig(code = squawk))
+                }
+            }
+        }
+
+        refresh()
+    }
+
+    suspend fun removeAlert(alert: AircraftAlert) = configLock.withLock {
+        withContext(NonCancellable) {
+            log(TAG) { "removeAlert($alert)" }
+
+            when (alert) {
+                is HexAlert -> settings.hexAlerts.update { group ->
+                    val oldConfigs = group.configs.toMutableSet()
+
+                    val toRemove = group.configs.firstOrNull { it.id == alert.id }
+                    if (toRemove == null) log(TAG, WARN) { "Unknown feeder: $alert" }
+                    else oldConfigs.remove(toRemove)
+
+                    group.copy(configs = oldConfigs)
+                }
+
+                is SquawkAlert -> settings.hexAlerts.update { group ->
+                    val oldConfigs = group.configs.toMutableSet()
+
+                    val toRemove = group.configs.firstOrNull { it.id == alert.id }
+                    if (toRemove == null) log(TAG, WARN) { "Unknown feeder: $alert" }
+                    else oldConfigs.remove(toRemove)
+
+                    group.copy(configs = oldConfigs)
                 }
             }
         }

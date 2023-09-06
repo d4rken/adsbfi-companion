@@ -5,6 +5,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eu.darken.adsbfi.alerts.core.AlertId
 import eu.darken.adsbfi.alerts.core.AlertsRepo
 import eu.darken.adsbfi.alerts.core.types.AircraftAlert
+import eu.darken.adsbfi.alerts.core.types.HexAlert
+import eu.darken.adsbfi.alerts.core.types.SquawkAlert
 import eu.darken.adsbfi.common.WebpageTool
 import eu.darken.adsbfi.common.coroutine.DispatcherProvider
 import eu.darken.adsbfi.common.debug.logging.log
@@ -48,7 +50,6 @@ class AlertActionViewModel @Inject constructor(
             .launchInViewModel()
     }
 
-
     val state = combine(
         trigger,
         alertsRepo.alerts.mapNotNull { data -> data.singleOrNull { it.id == alertId } },
@@ -63,33 +64,27 @@ class AlertActionViewModel @Inject constructor(
 
     fun removeAlert(confirmed: Boolean = false) = launch {
         log(TAG) { "removeFeeder()" }
-//        if (!confirmed) {
-//            events.postValue(AlertActionEvents.RemovalConfirmation(feederId))
-//            return@launch
-//        }
-//
-//        feederRepo.removeFeeder(feederId)
-    }
+        if (!confirmed) {
+            events.postValue(AlertActionEvents.RemovalConfirmation(alertId))
+            return@launch
+        }
 
-    fun toggleNotifyWhenSpotted() = launch {
-        log(TAG) { "toggleNotifyWhenSpotted()" }
-//        val newTimeout = if (state.value!!.feeder.config.offlineCheckTimeout != null) {
-//            null
-//        } else {
-//            Duration.ofHours(6)
-//        }
-//        feederRepo.setOfflineCheckTimeout(feederId, newTimeout)
+        alertsRepo.removeAlert(state.value!!.alert)
     }
 
     fun showOnMap() = launch {
         log(TAG) { "showOnMap()" }
-//        val feeder = state.value!!.feeder
-//        webpageTool.open(
-//            anywhereTool.createLink(
-//                ids = setOf(feeder.anywhereId),
-//                center = feeder.config.position,
-//            ),
-//        )
+
+        when (val alert = state.value!!.alert) {
+            is HexAlert -> {
+                webpageTool.open("https://globe.adsb.fi/?icao=${alert.hex}")
+            }
+
+            is SquawkAlert -> {
+                // TODO better URL
+                webpageTool.open("https://globe.adsb.fi/")
+            }
+        }
     }
 
     data class State(

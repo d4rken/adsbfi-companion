@@ -22,7 +22,7 @@
             android:id="@+id/icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_settings_input_antenna_24"
+            android:src="@drawable/ic_hexagon_multiple_24"
             app:layout_constraintBottom_toBottomOf="@id/tertiary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/primary" />
@@ -90,31 +90,16 @@
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feeder_show_map_action" />
+            android:text="@string/alerts_show_map_action" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/remove_feeder_action"
             style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feeder_remove_action"
+            android:text="@string/alerts_remove_action"
             android:textColor="?colorOnError"
             app:backgroundTint="@color/error" />
-
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/TextAppearance.Material3.LabelLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/feeder_options_label" />
-
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/monitor_feeder_offline_toggle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="4dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/feeder_monitor_offline_label" />
 
     </LinearLayout>
 </LinearLayout>

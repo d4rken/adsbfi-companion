@@ -104,7 +104,6 @@ class FeederRepo @Inject constructor(
                 }
             }
         }
-
     }
 
     private suspend fun refreshStatsFor(ids: Collection<ReceiverId>) = refreshLock.withLock {

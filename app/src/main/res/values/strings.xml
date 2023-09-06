@@ -124,4 +124,12 @@
     <string name="alerts_item_squawk_subtitle">Transponder code</string>
     <string name="alerts_item_hexcode_subtitle">ICAO 24-bit address</string>
     <string name="alerts_hexcode_notfound_message">Aircraft has not been spotted.</string>
+    <string name="alerts_show_map_action">Show on map</string>
+    <string name="alerts_remove_action">Delete alert</string>
+    <string name="alerts_remove_confirmation_title">Confirmation</string>
+    <string name="alerts_remove_confirmation_message">Delete this alert?</string>
+    <plurals name="alerts_squawk_matches_msg">
+        <item quantity="one">%1$d aircraft is squawking %1$s</item>
+        <item quantity="other">%1$d aircraft are squawking %1$s</item>
+    </plurals>
 </resources>

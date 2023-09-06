@@ -4,4 +4,8 @@ import eu.darken.adsbfi.alerts.core.AlertId
 
 sealed interface AircraftAlert {
     val id: AlertId
+
+    interface Config {
+        val id: AlertId
+    }
 }
