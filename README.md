@@ -19,3 +19,7 @@ Planned features:
 
 * SQUAWK alerts: Notifications if specific SQUAWK codes are transmitted by aircraft
 * ICAO alerts: Notifications if an aircraft with a specific ICAO identifier is airborne
+
+## Screenshots
+
+<img src="https://github.com/d4rken/adsbfi-companion/raw/main/.assets/screenshots/1.png" width="100"><img src="https://github.com/d4rken/adsbfi-companion/raw/main/.assets/screenshots/2.png" width="100">
