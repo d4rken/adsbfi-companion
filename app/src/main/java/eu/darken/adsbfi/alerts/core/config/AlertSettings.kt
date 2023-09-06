@@ -28,8 +28,7 @@ class AlertSettings @Inject constructor(
 
     val squawkAlerts = dataStore.createValue("alerts.squawk", SquawkAlertGroup(), moshi)
 
-    override val mapper = PreferenceStoreMapper(
-    )
+    override val mapper = PreferenceStoreMapper()
 
     companion object {
         internal val TAG = logTag("Alerts", "Settings")

@@ -9,40 +9,48 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import eu.darken.adsbfi.R
-import eu.darken.adsbfi.common.hasApiLevel
-import eu.darken.adsbfi.common.permissions.Permission
+import eu.darken.adsbfi.alerts.core.types.HexAlert
+import eu.darken.adsbfi.alerts.core.types.SquawkAlert
 import eu.darken.adsbfi.common.uix.BottomSheetDialogFragment2
-import eu.darken.adsbfi.databinding.FeederActionDialogBinding
+import eu.darken.adsbfi.databinding.AlertsActionDialogBinding
 
 @AndroidEntryPoint
 class AlertActionDialog : BottomSheetDialogFragment2() {
     override val vm: AlertActionViewModel by viewModels()
-    override lateinit var ui: FeederActionDialogBinding
+    override lateinit var ui: AlertsActionDialogBinding
 
     private val permissionlauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        ui = FeederActionDialogBinding.inflate(inflater, container, false)
+        ui = AlertsActionDialogBinding.inflate(inflater, container, false)
         return ui.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         vm.state.observe2(ui) { (alert) ->
-//            primary.text = alert.label
-            secondary.text = alert.id
-            tertiary.text = "\uD83C\uDF7B"
-//            monitorFeederOfflineToggle.isChecked = alert.config.offlineCheckTimeout != null
-        }
-
-        ui.monitorFeederOfflineToggle.apply {
-            setOnClickListener {
-                if (hasApiLevel(33) && !Permission.POST_NOTIFICATIONS.isGranted(requireContext())) {
-                    permissionlauncher.launch(Permission.POST_NOTIFICATIONS.permissionId)
+            when (alert) {
+                is HexAlert -> {
+                    icon.setImageResource(R.drawable.ic_hexagon_multiple_24)
+                    primary.text = alert.label
+                    secondary.text = alert.hex
+                    tertiary.text = alert.infos.firstOrNull()?.description
+                        ?: getString(R.string.alerts_item_hexcode_subtitle)
                 }
-                vm.toggleNotifyWhenSpotted()
+
+                is SquawkAlert -> {
+                    icon.setImageResource(R.drawable.ic_router_wireless_24)
+                    primary.text = alert.squawk
+                    secondary.text = getString(R.string.alerts_item_squawk_subtitle)
+                    tertiary.text = resources.getQuantityString(
+                        R.plurals.alerts_squawk_matches_msg,
+                        alert.infos.size,
+                        alert.infos.size,
+                        alert.squawk
+                    )
+                }
             }
         }
 
@@ -53,8 +61,8 @@ class AlertActionDialog : BottomSheetDialogFragment2() {
         vm.events.observe2(ui) { event ->
             when (event) {
                 is AlertActionEvents.RemovalConfirmation -> MaterialAlertDialogBuilder(requireContext()).apply {
-                    setTitle(R.string.feeder_remove_confirmation_title)
-                    setMessage(R.string.feeder_remove_confirmation_message)
+                    setTitle(R.string.alerts_remove_confirmation_title)
+                    setMessage(R.string.alerts_remove_confirmation_message)
                     setPositiveButton(R.string.general_remove_action) { _, _ -> vm.removeAlert(confirmed = true) }
                     setNegativeButton(R.string.general_cancel_action) { _, _ -> }
                 }.show()
