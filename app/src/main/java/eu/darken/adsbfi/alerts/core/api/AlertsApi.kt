@@ -16,12 +16,12 @@ interface AlertsApi {
         @JsonClass(generateAdapter = true)
         data class Hex(
             @Json(name = "hex") val hex: String, // "461f31",
-            @Json(name = "flight") val flight: String, // "FIN6BC",
-            @Json(name = "r") val registration: String, // "OH-LVD",
-            @Json(name = "t") val aircraftType: String, // "A319",
-            @Json(name = "desc") val description: String, // "AIRBUS A-319",
-            @Json(name = "squawk") val squawk: String, // "1000",
-            @Json(name = "alt_baro") val altitude: String, // 17975
+            @Json(name = "flight") val flight: String?, // "FIN6BC",
+            @Json(name = "r") val registration: String?, // "OH-LVD",
+            @Json(name = "t") val aircraftType: String?, // "A319",
+            @Json(name = "desc") val description: String?, // "AIRBUS A-319",
+            @Json(name = "squawk") val squawk: String?, // "1000",
+            @Json(name = "alt_baro") val altitude: String?, // 17975
         )
 
         @JsonClass(generateAdapter = true)
