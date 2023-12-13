@@ -1,3 +1,5 @@
+Superseeded by https://github.com/d4rken/airplanes-live-app
+
 <img src="https://raw.githubusercontent.com/d4rken/adsbfi-companion/main/app/src/main/ic_launcher-playstore.png" width="128">
 
 # adsb.fi Companion
